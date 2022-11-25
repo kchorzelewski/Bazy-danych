@@ -1,2 +1,7 @@
 Zadanie 1
-a)
+a) SELECT AVG(waga) FROM kreatura;
+b) SELECT AVG(waga), COUNT(*), rodzaj FROM kreatura GROUP BY rodzaj;
+c) SELECT AVG(YEAR(dataUr)), rodzaj FROM kreatura GROUP BY rodzaj;
+
+Zadanie 2
+a) 
