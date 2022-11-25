@@ -1,0 +1,34 @@
+CREATE TABLE postac (id_postaci INT PRIMARY KEY AUTO_INCREMENT, nazwa VARCHAR(40), rodzaj ENUM('wiking','ptak','kobieta'), data_ur DATE, wiek INT UNSIGNED);
+INSERT INTO postac VALUES (NULL, "Bjorn", 'wiking', '1998-11-11', 24);
+INSERT INTO postac VALUES (NULL, "Drozd", 'wiking', '1960-03-14', 62);
+INSERT INTO postac VALUES (NULL, "Tesciowa", 'kobieta', '1901-01-01', 121);
+UPDATE postac SET wiek = 88 WHERE nazwa = "Tesciowa";
+
+CREATE TABLE walizka (id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc INT UNSIGNED, kolor ENUM('rozowy', 'czerwony', 'teczowy', 'zolty'), id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac.id_postaci ON DELETE CASCADE);
+ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
+INSERT INTO walizka (pojemnosc, id_wlasciciela) VALUES (30, 1);
+INSERT INTO walizka (pojemnosc, id_wlasciciela) VALUES (5, 3);
+
+CREATE TABLE izba (adres_budynku VARCHAR(40), nazwa_izby VARCHAR(40), matraz INT UNSIGNED, wlasciciel VARCHAR(40) REFERENCES postac.id_postaci ON DELETE SET NULL, PRIMARY KEY (adres_budynku, nazwa_izby));
+// ALTER TABLE izba ADD PRIMARY KEY (adres_budynku, nazwa_izby);
+ALTER TABLE izba ADD kolor varchar(40) DEFAULT "czarny" AFTER metraz
+INSERT INTO izba VALUES ("laczna 43", "spizarnia", 30, "niebieski", "Drozd")
+
+CREATE TABLE pole (id_przetworu INT PRIMARY KEY, rok_produkcji YEAR DEFAULT 1954, id_wykonawcy INT REFERENCES postac (id_postaci), zawartosc VARCHAR(40), dodatek VARCHAR(40) DEFAULT "papryczka chilli", id_konsumenta INT REFERENCES postac (id_postaci))
+INSERT INTO przetwory VALUES (1, 1992, 1, "bigos", "papryczka chilli", 3)
+
+INSERT INTO postac (nazwa, rodzaj) VALUES ("jan", wiking)
+INSERT INTO postac (nazwa, rodzaj) VALUES ("donald", wiking)
+INSERT INTO postac (nazwa, rodzaj) VALUES ("jarosław", wiking)
+INSERT INTO postac (nazwa, rodzaj) VALUES ("olaf", wiking)
+INSERT INTO postac (nazwa, rodzaj) VALUES ("norbert", wiking)
+CREATE TABLE statek (nazwa_statku VARCHAR(40) PRIMARY KEY, rodzaj_statku ENUM('łajba', 'turystyczny', 'omega', 'wiosłowa'), data_wodowania DATE, max_ladownosc INT UNSIGNED); 
+INSERT INTO statek VALUES ("sztorm", "łajba", '2021-06-01', 900)
+INSERT INTO statek VALUES ("meduza", "omega", '2022-01-02', 300)
+ALTER TABLE postac ADD funkcja VARCHAR(40)
+UPDATE postac SET funkcja = "kapitan" WHERE id_postaci = 1
+ALTER TABLE postac ADD statek VARCHAR(40);
+ALTER TABLE postac ADD FOREIGN KEY (statek) REFERENCES statek (nazwa_statku);
+UPDATE postac SET statek = "sztorm" WHERE rodzaj = "wiking";
+DELETE FROM izba WHERE nazwa_izby = "spizarnia";
+DROP TABLE izba;
