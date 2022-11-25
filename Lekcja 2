@@ -1,0 +1,34 @@
+Zadanie 1
+a) DELETE FROM postac WHERE rodzaj = "wiking" ORDER BY wiek DESC LIMIT 2;
+b) ALTER TABLE postac MODIFY id_postaci INT NOT NULL;
+
+Zadanie 2
+a) ALTER TABLE postac ADD pesel char(11);
+	UPDATE postac SET  pesel = '00000000001' WHERE id_postaci = 1;
+	UPDATE postac SET  pesel = '00000000002' WHERE id_postaci = 2;
+	UPDATE postac SET  pesel = '00000000003' WHERE id_postaci = 3;
+	UPDATE postac SET  pesel = '00000000006' WHERE id_postaci = 6;
+	UPDATE postac SET  pesel = '00000000007' WHERE id_postaci = 7;
+	UPDATE postac SET  pesel = '00000000008' WHERE id_postaci = 8;
+INSERT INTO postac VALUES (4, "Gertruda Nieszczera", "kobieta", '2001-05-02', 21, NULL, NULL, 00000000004);
+b) ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+c) INSERT INTO postac VALUES (1, "Getruda Nieszczera", "syrena", '1998-08-21', 22, NULL, NULL,'00000000009');
+
+Zadanie 3
+a) UPDATE postac SET statek = "meduza" WHERE nazwa LIKE "%a%";
+b) UPDATE statek SET max_ladownosc = max_ladownosc * 0.7 WHERE YEAR(data_wodowania) BETWEEN 1901 AND 2000;
+c) 
+
+Zadanie 4
+a) INSERT INTO postac (id_postaci, nazwa) VALUES (5, "waz loko");
+b) CREATE TABLE marynarz AS SELECT * FROM postac;
+	DELETE FROM marynarz WHERE statek IS NULL;
+c) ALTER TABLE marynarz ADD PRIMARY KEY (id_postaci), ADD FOREIGN KEY (statek) REFERENCES statek(nazwa_statku); 
+
+Zadanie 5
+a) UPDATE marynarz SET statek = NULL;
+b) DELETE FROM marynarz WHERE id_postaci = 6;
+c) TRUNCATE TABLE statek;
+d) DROP TABLE statek;
+e) CREATE TABLE zwierz(id INT PRIMARY KEY AUTO_INCREMENT, nazwa VARCHAR(40), wiek INT);
+f) INSERT INTO zwierz (id, nazwa, wiek) SELECT id_postaci, nazwa, wiek FROM postac;
