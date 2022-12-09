@@ -1,0 +1,14 @@
+Zadanie 1
+a) DELETE FROM chorzelewskik.kreatura;
+	INSERT INTO chorzelewskik.kreatura SELECT * FROM wikingowie.kreatura;
+	CREATE TABLE chorzelewskik.uczestnicy LIKE uczestnicy;
+	INSERT INTO chorzelewskik.uczestnicy SELECT * FROM uczestnicy;
+	CREATE TABLE chorzelewskik.etapy_wyprawy LIKE etapy_wyprawy;
+	INSERT INTO chorzelewskik.etapy_wyprawy SELECT * FROM etapy_wyprawy;
+	CREATE TABLE chorzelewskik.sektor LIKE sektor;
+	INSERT INTO chorzelewskik.sektor SELECT * FROM sektor;
+	CREATE TABLE chorzelewskik.wyprawa LIKE wyprawa;
+	INSERT INTO chorzelewskik.wyprawa SELECT * FROM wyprawa;
+b) SELECT kreatura.nazwa FROM kreatura LEFT JOIN uczestnicy ON uczestnicy.id_uczestnika = kreatura.idKreatury WHERE uczestnicy.id_uczestnika IS NULL;
+c) SELECT * FROM uczestnicy JOIN wyprawa ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy;
+
