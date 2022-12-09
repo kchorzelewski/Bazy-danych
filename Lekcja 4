@@ -16,5 +16,10 @@ c) SELECT * FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury = ekwipunek
 Zadanie 4
 a) SELECT DISTINCT kreatura.nazwa, zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek JOIN zasob WHERE YEAR(dataUr) BETWEEN 1769 AND 1780;
 b) SELECT DISTINCT kreatura.nazwa, dataUr FROM kreatura NATURAL JOIN ekwipunek JOIN zasob WHERE zasob.rodzaj="jedzenie" ORDER BY dataUr LIMIT 5;
-c) 
+c) SELECT CONCAT(A.nazwa, '-', B.nazwa) FROM kreatura A, kreatura B WHERE (A.idKreatury + 5) = B.idKreatury;
+
+Zadanie 5
+a) SELECT kreatura.rodzaj, AVG(kreatura.waga) FROM kreatura JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury;
+SELECT kreatura.rodzaj, AVG(kreatura.waga) FROM kreatura GROUP BY rodzaj;
+SELECT kreatura.rodzaj, AVG(kreatura.waga) FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury GROUP BY rodzaj;
  
