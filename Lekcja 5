@@ -10,5 +10,10 @@ a) DELETE FROM chorzelewskik.kreatura;
 	CREATE TABLE chorzelewskik.wyprawa LIKE wyprawa;
 	INSERT INTO chorzelewskik.wyprawa SELECT * FROM wyprawa;
 b) SELECT kreatura.nazwa FROM kreatura LEFT JOIN uczestnicy ON uczestnicy.id_uczestnika = kreatura.idKreatury WHERE uczestnicy.id_uczestnika IS NULL;
-c) SELECT * FROM uczestnicy JOIN wyprawa ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy;
+c) SELECT wyprawa.nazwa, SUM(ekwipunek.ilosc) FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy GROUP BY wyprawa.id_wyprawy;
+
+Zadanie 2
+a) SELECT * FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON ekwipunek.idKreatury = kreatura.idKreatury GROUP BY wyprawa.id_wyprawy;
+GROUP_CONCAT(wyprawa.nazwa, kreatura.nazwa,)
+SELECT DISTINCT kreatura.idKreatury, wyprawa.nazwa FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON ekwipunek.idKreatury = kreatura.idKreatury ;
 
