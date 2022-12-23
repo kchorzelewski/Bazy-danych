@@ -1,0 +1,150 @@
+|							\ekwipunek								 |
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| idEkwipunku | int          | NO   | PRI | NULL    | auto_increment |
+| idKreatury  | int          | YES  | MUL | NULL    |                |
+| idZasobu    | int          | YES  | MUL | NULL    |                |
+| ilosc       | int unsigned | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+|					\etapy_wyprawy						   | 
++-----------+------+------+-----+---------+----------------+
+| Field     | Type | Null | Key | Default | Extra          |
++-----------+------+------+-----+---------+----------------+
+| idEtapu   | int  | NO   | PRI | NULL    | auto_increment |
+| idWyprawy | int  | YES  | MUL | NULL    |                |
+| sektor    | int  | YES  | MUL | NULL    |                |
+| kolejnosc | int  | YES  |     | NULL    |                |
+| dziennik  | text | YES  |     | NULL    |                |
++-----------+------+------+-----+---------+----------------+
+
+
+|						\kreatura						   |
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| idKreatury | int          | NO   | PRI | NULL    |       |
+| nazwa      | varchar(30)  | YES  |     | NULL    |       |
+| rodzaj     | varchar(30)  | YES  | MUL | NULL    |       |
+| dataUr     | date         | YES  |     | NULL    |       |
+| waga       | int unsigned | YES  |     | NULL    |       |
+| udzwig     | int unsigned | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+|									\marynarz										   |
++------------+------------------------------------------+------+-----+---------+-------+
+| Field      | Type                                     | Null | Key | Default | Extra |
++------------+------------------------------------------+------+-----+---------+-------+
+| id_postaci | int                                      | NO   | PRI | NULL    |       |
+| nazwa      | varchar(40)                              | YES  |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta','syrena') | YES  |     | NULL    |       |
+| data_ur    | date                                     | YES  |     | NULL    |       |
+| wiek       | int unsigned                             | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                              | YES  |     | NULL    |       |
+| statek     | varchar(40)                              | YES  | MUL | NULL    |       |
+| pesel      | char(11)                                 | YES  |     | NULL    |       |
+| czy_stary  | varchar(4)                               | YES  |     | NULL    |       |
++------------+------------------------------------------+------+-----+---------+-------+
+
+|									\postac											   |
++------------+------------------------------------------+------+-----+---------+-------+
+| Field      | Type                                     | Null | Key | Default | Extra |
++------------+------------------------------------------+------+-----+---------+-------+
+| id_postaci | int                                      | NO   |     | NULL    |       |
+| nazwa      | varchar(40)                              | YES  |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta','syrena') | YES  |     | NULL    |       |
+| data_ur    | date                                     | YES  |     | NULL    |       |
+| wiek       | int unsigned                             | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                              | YES  |     | NULL    |       |
+| statek     | varchar(40)                              | YES  | MUL | NULL    |       |
+| pesel      | char(11)                                 | YES  |     | NULL    |       |
+| czy_stary  | varchar(4)                               | YES  |     | NULL    |       |
++------------+------------------------------------------+------+-----+---------+-------+
+
+|								\przetwory							  |
++---------------+-------------+------+-----+------------------+-------+
+| Field         | Type        | Null | Key | Default          | Extra |
++---------------+-------------+------+-----+------------------+-------+
+| id_przetworu  | int         | NO   | PRI | NULL             |       |
+| rok_produkcji | year        | YES  |     | 1954             |       |
+| id_wykonawcy  | int         | YES  |     | NULL             |       |
+| zawartosc     | varchar(40) | YES  |     | NULL             |       |
+| dodatek       | varchar(40) | YES  |     | papryczka chilli |       |
+| id_konsumenta | int         | YES  |     | NULL             |       |
++---------------+-------------+------+-----+------------------+-------+
+
+|							\sektor 						  |
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| id_sektora    | int          | NO   | PRI | NULL    |       |
+| nazwa         | varchar(200) | NO   |     | NULL    |       |
+| wspolrzedna_x | char(1)      | NO   |     | NULL    |       |
+| wspolrzedna_y | int          | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+
+
+|										\statek												   |
++----------------+----------------------------------------------+------+-----+---------+-------+
+| Field          | Type                                         | Null | Key | Default | Extra |
++----------------+----------------------------------------------+------+-----+---------+-------+
+| nazwa_statku   | varchar(40)                                  | NO   | PRI | NULL    |       |
+| rodzaj_statku  | enum('ajba','turystyczny','omega','wiosowa') | YES  |     | NULL    |       |
+| data_wodowania | date                                         | YES  |     | NULL    |       |
+| max_ladownosc  | int unsigned                                 | YES  |     | NULL    |       |
++----------------+----------------------------------------------+------+-----+---------+-------+
+
+|						/uczestnicy					  |
++---------------+------+------+-----+---------+-------+
+| Field         | Type | Null | Key | Default | Extra |
++---------------+------+------+-----+---------+-------+
+| id_wyprawy    | int  | NO   | PRI | NULL    |       |
+| id_uczestnika | int  | NO   | PRI | NULL    |       |
++---------------+------+------+-----+---------+-------+
+
+|											\walizka												   |
++----------------+---------------------------------------------+------+-----+---------+----------------+
+| Field          | Type                                        | Null | Key | Default | Extra          |
++----------------+---------------------------------------------+------+-----+---------+----------------+
+| id_walizki     | int                                         | NO   | PRI | NULL    | auto_increment |
+| pojemnosc      | int unsigned                                | YES  |     | NULL    |                |
+| kolor          | enum('rozowy','czerwony','teczowy','zolty') | YES  |     | rozowy  |                |
+| id_wlasciciela | int                                         | YES  |     | NULL    |                |
++----------------+---------------------------------------------+------+-----+---------+----------------+
+
+|								\wyprawa								  |
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_wyprawy       | int          | NO   | PRI | NULL    | auto_increment |
+| nazwa            | varchar(200) | NO   |     | NULL    |                |
+| data_rozpoczecia | date         | NO   |     | NULL    |                |
+| data_zakonczenia | date         | NO   |     | NULL    |                |
+| kierownik        | int          | YES  | MUL | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+|								\zasob 									|
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| idZasobu       | int          | NO   | PRI | NULL    | auto_increment |
+| nazwa          | varchar(50)  | YES  |     | NULL    |                |
+| waga           | float(6,2)   | YES  |     | NULL    |                |
+| ilosc          | int unsigned | YES  |     | NULL    |                |
+| dataPozyskania | date         | YES  |     | NULL    |                |
+| rodzaj         | varchar(50)  | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+|						\zwierz								  |
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| nazwa | varchar(40) | YES  |     | NULL    |                |
+| wiek  | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+
+
+
+
