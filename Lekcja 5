@@ -13,7 +13,18 @@ b) SELECT kreatura.nazwa FROM kreatura LEFT JOIN uczestnicy ON uczestnicy.id_ucz
 c) SELECT wyprawa.nazwa, SUM(ekwipunek.ilosc) FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy GROUP BY wyprawa.id_wyprawy;
 
 Zadanie 2
-a) SELECT * FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON ekwipunek.idKreatury = kreatura.idKreatury GROUP BY wyprawa.id_wyprawy;
-GROUP_CONCAT(wyprawa.nazwa, kreatura.nazwa,)
-SELECT DISTINCT kreatura.idKreatury, wyprawa.nazwa FROM ekwipunek JOIN uczestnicy ON uczestnicy.id_uczestnika = ekwipunek.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON ekwipunek.idKreatury = kreatura.idKreatury ;
+1) SELECT wyprawa.nazwa, COUNT(*) AS liczba_uczestnikow, GROUP_CONCAT(kreatura.nazwa) as kreatury FROM kreatura JOIN uczestnicy ON uczestnicy.id_uczestnika = kreatura.idKreatury JOIN wyprawa ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy GROUP BY wyprawa.nazwa;
+2) SELECT etapy_wyprawy.sektor, wyprawa.nazwa, etapy_wyprawy.kolejnosc, kreatura.nazwa AS kierownik, wyprawa.data_rozpoczecia FROM wyprawa JOIN etapy_wyprawy ON etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy JOIN kreatura ON kreatura.idKreatury = wyprawa.kierownik ORDER BY wyprawa.data_rozpoczecia, kolejnosc ;
 
+Zadanie 3
+SELECT sektor.nazwa, COALESCE(COUNT(sektor.nazwa),0) FROM etapy_wyprawy RIGHT JOIN wyprawa on etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy RIGHT JOIN sektor ON sektor.id_sektora = etapy_wyprawy.sektor GROUP BY sektor.nazwa;           \\trzeba zrobić ifnull jeszcze
+
+//tutaj brak jeszcze zrobić
+
+Zadanie 4
+
+1) SELECT wyprawa.nazwa, SUM(length(etapy_wyprawy.dziennik))  FROM wyprawa JOIN etapy_wyprawy ON wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy GROUP BY wyprawa.id_wyprawy HAVING(SUM(LENGTH(etapy_wyprawy.dziennik)<400) 
+2) SELECT wyprawa.nazwa, SUM(zasob.waga*zasob.ilosc)/COUNT(*) FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON uczestnicy.id_uczestnika = kreatura.idKreatury JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury JOIN zasob ON zasob.idZasobu = ekwipunek.idZasobu GROUP BY wyprawa.id_wyprawy; //
+
+Zadanie 5
+SELECT kreatura.nazwa, datediff(yyyy, kreatura.dataUr, wyprawa.data_rozpoczecia) FROM uczestnicy JOIN wyprawa ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy JOIN kreatura ON kreatura.idKreatury =  uczestnicy.id_uczestnika;
